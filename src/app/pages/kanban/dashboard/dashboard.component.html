@@ -1,0 +1,83 @@
+
+
+
+
+<div style="display: flex;">
+  <div class="w-100">
+    <div class="acoes"><button class="btn" (click)="abrirModalCadastro()"><img src="../../../assets/icons/icon-add.svg" alt="Adicionar"></button></div>
+    <div cdkDropListGroup class="dashboard container">
+
+
+      <div class="example-container">
+        <div class="d-flex justify-content-center">
+          <h2>A Fazer</h2>
+        </div>
+
+
+        <div cdkDropList [cdkDropListData]="fazer" class="concluido" (cdkDropListDropped)="drop($event)">
+          <div *ngFor="let item of fazer; let i = index" class="card-projeto" cdkDrag>
+            <div (click)="detalhesProjeto(item.id)">
+              <label>{{item.name}}</label><br>
+              <label>{{item.responsaveis.username}}</label><br>
+              <label>{{ item.dataEntrega | date:'dd/MM/yyyy' }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="example-container">
+
+        <div class="d-flex justify-content-center">
+          <h2>Em Andamento</h2>
+        </div>
+        <div cdkDropList [cdkDropListData]="andamento" class="concluido" (cdkDropListDropped)="drop($event)">
+          <div *ngFor="let item of andamento; let i = index" class="card-projeto" cdkDrag>
+            <div (click)="detalhesProjeto(item.id)">
+              <label>{{item.name}}</label><br>
+              <label>{{item.responsaveis.username}}</label><br>
+              <label>{{ item.dataEntrega | date:'dd/MM/yyyy' }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="example-container">
+
+        <div class="d-flex justify-content-center">
+          <h2>Teste</h2>
+        </div>
+        <div cdkDropList [cdkDropListData]="pausado" class="concluido" (cdkDropListDropped)="drop($event)">
+          <div *ngFor="let item of pausado; let i = index" class="card-projeto" cdkDrag>
+            <div (click)="detalhesProjeto(item.id)">
+              <label>{{item.name}}</label><br>
+              <label>{{item.responsaveis.username}}</label><br>
+              <label>{{ item.dataEntrega | date:'dd/MM/yyyy' }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="example-container">
+
+        <div class="d-flex justify-content-center">
+          <h2>Concluído</h2>
+        </div>
+
+        <div cdkDropList [cdkDropListData]="concluido" class="concluido" (cdkDropListDropped)="drop($event)">
+          <div *ngFor="let item of concluido; let i = index" class="card-projeto" cdkDrag (click)="onCardClick($event, item.id)">
+            <div>
+              <label>{{item.name}}</label><br>
+              <label>{{item.responsaveis.username}}</label><br>
+              <label>{{ item.dataEntrega | date:'dd/MM/yyyy' }}</label>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+</div>

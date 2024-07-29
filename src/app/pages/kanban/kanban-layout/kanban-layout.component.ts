@@ -1,20 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from './services/auth.service';
-import { RespostaApi } from './models/respostaApi';
+import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { LoadingService } from './services/loading.service';
-import { SignalRService } from './services/signalr.service';
 import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
+import { LoadingService } from 'src/app/services/loading.service';
+import { SignalRService } from 'src/app/services/signalr.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  selector: 'app-kanban-layout',
+  templateUrl: './kanban-layout.component.html',
+  styleUrls: ['./kanban-layout.component.scss']
 })
-export class AppComponent implements OnInit {
-  title = 'ControllerLifeInterface';
-  token: string = "";
+export class KanbanLayoutComponent {
+  sidebarOpen = false;
+  routerOutletWidth = '85vw';
   loading = false;
+  token: string = '';
   progresso$: Observable<number>;
 
 
@@ -29,7 +29,9 @@ export class AppComponent implements OnInit {
     });
 
 
-    
+    this.loadingService.loading.subscribe((isLoading: boolean) => {
+      this.loading = isLoading;
+    });
 
     this.progresso$ = this.buscarProgresso();
   }
@@ -39,6 +41,11 @@ export class AppComponent implements OnInit {
   }
 
 
+
+  toggleSidebar() {
+    this.sidebarOpen = !this.sidebarOpen;
+    this.routerOutletWidth = this.sidebarOpen ? '100vw' : '85vw';
+  }
 
   buscarToken() {
     this.authService

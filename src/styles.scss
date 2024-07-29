@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+/* Adicione esta linha no início do seu arquivo styles.css */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+.space{
+  width: 85vw;
+  height: 100vh;
+}

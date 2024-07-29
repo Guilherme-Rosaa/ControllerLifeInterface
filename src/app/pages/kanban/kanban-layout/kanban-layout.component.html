@@ -1,0 +1,7 @@
+<div class="espaco">
+  <app-sidebar *ngIf="sidebarOpen" (toggle)="toggleSidebar()"></app-sidebar>
+  <div class="router-outlet">
+    <app-menu (toggle)="toggleSidebar()"></app-menu>
+    <router-outlet></router-outlet>
+  </div>
+</div>

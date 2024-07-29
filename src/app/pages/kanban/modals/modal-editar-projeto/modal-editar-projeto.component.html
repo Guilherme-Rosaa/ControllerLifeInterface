@@ -1,0 +1,92 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title">Editar Projeto</h5>
+    <button type="button" class="btn-close close" (click)="fecharModal()">
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="projetoForm" (ngSubmit)="atualizarProjeto()">
+
+      <div class="row">
+        <div class="col">
+          <div>
+            <label for="name">Nome:</label>
+            <input type="text" id="name" class="form-control" formControlName="name">
+            <div
+              *ngIf="projetoForm.get('name')?.invalid && (projetoForm.get('name')?.dirty || projetoForm.get('name')?.touched)">
+              <small *ngIf="projetoForm.get('name')?.errors">Nome é obrigatório.</small>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div>
+            <label for="responsaveis">Responsavel:</label>
+            <select id="responsaveis" class="form-control" formControlName="responsaveis" [compareWith]="compareUsuarios">
+              <option [ngValue]="usuario" *ngFor="let usuario of usuarios">
+                {{usuario.username}}
+              </option>
+            </select>
+            <div
+              *ngIf="projetoForm.get('responsaveis')?.invalid && (projetoForm.get('responsaveis')?.dirty || projetoForm.get('responsaveis')?.touched)">
+              <small *ngIf="projetoForm.get('responsaveis')?.errors">Responsavel é obrigatório.</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div>
+        <label for="description">Descrição:</label>
+        <textarea id="description" class="form-control" formControlName="description"></textarea>
+        <div
+          *ngIf="projetoForm.get('description')?.invalid && (projetoForm.get('description')?.dirty || projetoForm.get('description')?.touched)">
+          <small *ngIf="projetoForm.get('description')?.errors">Descrição é obrigatória.</small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div>
+            <label for="dataEntrega">Data de Entrega:</label>
+            <input type="date" id="dataEntrega" class="form-control" formControlName="dataEntrega">
+            <div
+              *ngIf="projetoForm.get('dataEntrega')?.invalid && (projetoForm.get('dataEntrega')?.dirty || projetoForm.get('dataEntrega')?.touched)">
+              <small *ngIf="projetoForm.get('dataEntrega')?.errors">Data de Entrega é obrigatória.</small>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div>
+            <label for="status">Status:</label>
+            <select id="status" class="form-control" formControlName="status">
+              <option *ngFor="let status of statusOptions" [value]="status.value">{{status.label}}</option>
+            </select>
+            <div
+              *ngIf="projetoForm.get('status')?.invalid && (projetoForm.get('status')?.dirty || projetoForm.get('status')?.touched)">
+              <small>Status é obrigatório.</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+ </form>
+  </div>
+  <div class="modal-footer">
+    <div class="row">
+      <div class="col">
+        <button type="button" class="btn btn-secondary" (click)="fecharModal()">Cancelar</button>
+      </div>
+      <div class="col">
+        <button type="button" class="btn btn-primary"
+          >Atualizar</button>
+      </div>
+    </div>
+  </div>
+
+</div>

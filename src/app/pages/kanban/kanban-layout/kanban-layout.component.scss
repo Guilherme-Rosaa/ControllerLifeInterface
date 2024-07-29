@@ -1,0 +1,12 @@
+.router-outlet {
+  width: 85vw;
+}
+.espaco > div {
+  flex: 1;
+}
+
+.espaco {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}

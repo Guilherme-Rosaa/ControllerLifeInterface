@@ -1,0 +1,23 @@
+<div class="d-flex justify-content-center align-items-center" style="height: 87vh; overflow: hidden;">
+  <div class="align-items-center container-cadastro">
+    <form [formGroup]="formulario" (ngSubmit)="cadastrar()">
+      <div class="section-empresa">
+        <h4>Informe os dados da empresa</h4>
+        <input class="form-control" id="nome" type="text" formControlName="Nome" placeholder="Nome da Empresa">
+      </div>
+      <div class="section-usuario">
+        <h4>Informe os dados do administrador</h4>
+        <div formGroupName="UsuarioDto" class="d-flex justify-content-around">
+          <input class="form-control" id="login" type="text" formControlName="Login" placeholder="Login">
+          <input class="form-control" id="senha" type="password" formControlName="Senha" placeholder="Senha">
+          <input class="form-control" id="email" type="email" formControlName="Email" placeholder="Email">
+        </div>
+      </div>
+      <div class="d-flex justify-content-end mt-3">
+        <button class="btn btn-dark" type="button" (click)="voltar()">Cancelar</button>
+        <button class="btn btn-dark" type="submit" [disabled]="!formulario.valid">Cadastrar</button>
+      </div>
+    </form>
+  </div>
+
+</div>
