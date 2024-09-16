@@ -45,9 +45,6 @@ export class ModalCadastrarProjetoComponent implements OnInit {
     this.buscarUsuarios();
   }
 
-  onSubmit() {
-    throw new Error('Method not implemented.');
-  }
   fecharModal() {
     this.dialog.closeAll();
   }
