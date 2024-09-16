@@ -77,12 +77,14 @@ export class ModalCadastrarProjetoComponent implements OnInit {
   buscarUsuarios(){
     this.authService.buscarUsuarios().subscribe((respota: RespostaApi) => {
       this.usuarios = respota.data;
-      console.log(this.usuarios);
-
     })
   }
 
   compareUsuarios(u1: Usuario, u2: Usuario): boolean {
     return u1 && u2 ? u1.id === u2.id : u1 === u2;
+  }
+
+  selecionarUsuario(event :any){
+    this.usuario = this.usuarios.find(usu => usu.id == event.value)!;
   }
 }
