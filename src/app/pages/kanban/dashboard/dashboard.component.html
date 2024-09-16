@@ -14,7 +14,7 @@
         </div>
 
 
-        <div cdkDropList [cdkDropListData]="fazer" class="concluido" (cdkDropListDropped)="drop($event)">
+        <div cdkDropList [cdkDropListData]="fazer" class="coluna" (cdkDropListDropped)="drop($event)">
           <div *ngFor="let item of fazer; let i = index" class="card-projeto" cdkDrag>
             <div (click)="detalhesProjeto(item.id)">
               <label>{{item.name}}</label><br>
@@ -31,7 +31,7 @@
         <div class="d-flex justify-content-center">
           <h2>Em Andamento</h2>
         </div>
-        <div cdkDropList [cdkDropListData]="andamento" class="concluido" (cdkDropListDropped)="drop($event)">
+        <div cdkDropList [cdkDropListData]="andamento" class="coluna" (cdkDropListDropped)="drop($event)">
           <div *ngFor="let item of andamento; let i = index" class="card-projeto" cdkDrag>
             <div (click)="detalhesProjeto(item.id)">
               <label>{{item.name}}</label><br>
@@ -48,7 +48,7 @@
         <div class="d-flex justify-content-center">
           <h2>Teste</h2>
         </div>
-        <div cdkDropList [cdkDropListData]="pausado" class="concluido" (cdkDropListDropped)="drop($event)">
+        <div cdkDropList [cdkDropListData]="pausado" class="coluna" (cdkDropListDropped)="drop($event)">
           <div *ngFor="let item of pausado; let i = index" class="card-projeto" cdkDrag>
             <div (click)="detalhesProjeto(item.id)">
               <label>{{item.name}}</label><br>
@@ -65,7 +65,7 @@
           <h2>Concluído</h2>
         </div>
 
-        <div cdkDropList [cdkDropListData]="concluido" class="concluido" (cdkDropListDropped)="drop($event)">
+        <div cdkDropList [cdkDropListData]="concluido" class="coluna" (cdkDropListDropped)="drop($event)">
           <div *ngFor="let item of concluido; let i = index" class="card-projeto" cdkDrag (click)="onCardClick($event, item.id)">
             <div>
               <label>{{item.name}}</label><br>
