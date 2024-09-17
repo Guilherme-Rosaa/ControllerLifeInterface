@@ -59,6 +59,7 @@ export class ModalCadastrarProjetoComponent implements OnInit {
       dataAtualizacao: undefined,
       dataEntrega: this.projetoForm.get('dataEntrega')?.value,
       status: EnumStatus.EmDesenvolvimento,
+      empresaId: ""
     };
 
     this.service.cadastrarProjetos(projeto).subscribe(

@@ -1,11 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
+import { catchError, finalize, map, of } from 'rxjs';
 import { EnumStatus } from 'src/app/models/enums/enums-status';
 import { Projeto } from 'src/app/models/projeto';
 import { RespostaApi } from 'src/app/models/respostaApi';
 import { Usuario } from 'src/app/models/usuario';
 import { AuthService } from 'src/app/services/auth.service';
+import { LoadingService } from 'src/app/services/loading.service';
 import { ProjectServiceService } from 'src/app/services/project-service.service';
 
 @Component({
@@ -29,11 +32,14 @@ export class ModalEditarProjetoComponent implements OnInit {
   ];
 
   constructor(
+    public dialogRef: MatDialogRef<ModalEditarProjetoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Projeto,
     private fb: FormBuilder,
     public dialog: MatDialog,
     public authService: AuthService,
-    public projetctService: ProjectServiceService
+    public projetctService: ProjectServiceService,
+    private toastr: ToastrService,
+    private loadingService: LoadingService
   ) {
     this.projetoForm = this.fb.group({
       name: [data.name, Validators.required],
@@ -57,14 +63,42 @@ export class ModalEditarProjetoComponent implements OnInit {
   }
 
   fecharModal() {
-    this.dialog.closeAll();
+    this.dialogRef.close(false);
   }
 
-  atualizarProjeto(){
-    this.projetctService.atualizarProjeto(this.projetoForm.value).subscribe((resposta:any)=>{
-      console.log(resposta);
+  atualizarProjeto() {
+    this.loadingService.setLoading(true);
 
-    })
+    let projeto : Projeto ={
+      id: this.data.id,
+      name: this.projetoForm.get('name')?.value,
+      description: this.projetoForm.get('description')?.value,
+      responsaveis: this.projetoForm.get('responsaveis')?.value,
+      dataCadastro: this.data.dataCadastro,
+      dataAtualizacao: this.data.dataAtualizacao,
+      dataEntrega: this.projetoForm.get('dataEntrega')?.value,
+      status:this.projetoForm.get('status')?.value,
+      empresaId: this.data.empresaId
+    }
+
+    this.projetctService.atualizarProjeto(projeto).pipe(
+      map((resposta: RespostaApi) => resposta),
+      catchError((erro) => {
+        this.toastr.error('Erro ao atualizar o projeto. Tente novamente mais tarde.');
+        return of(null);
+      }),
+      finalize(() => {
+        this.dialogRef.close(true);
+      })
+    ).subscribe((resposta: RespostaApi | null) => {
+      if (resposta && resposta.success) {
+        this.toastr.success('Projeto atualizado com sucesso!');
+      } else if (resposta === null) {
+        console.error('Nenhuma resposta recebida do servidor.');
+      } else {
+        this.toastr.error('Falha na atualização do projeto.');
+      }
+    });
   }
 
   buscarUsuarios(){

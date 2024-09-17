@@ -3,6 +3,7 @@ import { Usuario } from "./usuario";
 
 export interface Projeto {
   id: string;
+  empresaId:string;
   name: string;
   description: string;
   responsaveis: Usuario;

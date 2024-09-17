@@ -46,6 +46,7 @@ export class DashboardComponent implements OnInit {
     dataAtualizacao: undefined,
     dataEntrega: new Date(),
     status: EnumStatus.EmDesenvolvimento,
+    empresaId: ""
   };
 
   constructor(
@@ -123,9 +124,14 @@ export class DashboardComponent implements OnInit {
   detalhesProjeto(projetoId: string) {
     this.service.buscarProjeto(projetoId).subscribe((resposta: RespostaApi) => {
       var projeto: Projeto = resposta.data;
-      this.dialog.open(ModalEditarProjetoComponent, {data: projeto,
+      const dialogRef = this.dialog.open(ModalEditarProjetoComponent, {data: projeto,
         width:'900px'
-      },);
+      });
+      dialogRef.afterClosed().subscribe((atualizado)=>{
+        if(atualizado){
+          location.reload();
+        }
+      });
     });
   }
 
